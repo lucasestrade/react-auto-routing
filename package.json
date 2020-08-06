@@ -1,13 +1,14 @@
 {
   "name": "react-auto-routing",
-  "version": "1.0.0",
-  "description": "react-auto-routing is a React component to automatic and easily create multiple routes",
-  "main": "lib/AutoRouting.js",
+  "version": "1.0.4",
+  "description": "React-auto-routing is a React component to automatic and easily create multiple routes",
+  "main": "dist/AutoRouting.js",
+  "types": "dist/AutoRouting.d.ts",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "build": "coffee --compile --watch --output lib/ src/"
+    "build": "tsc --watch"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,18 @@
   },
   "homepage": "https://github.com/lucasestrade/react-auto-routing#readme",
   "dependencies": {
+    "@types/react-router-dom": "^5.1.5",
     "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.44",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-test-renderer": "^16.9.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts-ts": "^3.1.0",
+    "react-test-renderer": "^16.13.1",
+    "ts-loader": "^8.0.2",
+    "typescript": "^3.9.7"
   }
 }
