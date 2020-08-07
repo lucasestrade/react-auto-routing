@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 /**
- * react-auto-routing v.1.0.9
+ * react-auto-routing v.1.0.10
  * 
  * React-auto-routing is a React component to automatic and easily create multiple routes.
  * 
