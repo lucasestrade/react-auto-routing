@@ -21,41 +21,48 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 export function Content() {
     return React.createElement(React.Fragment, null);
 }
 export function AutoRouting(_a) {
     var routes = _a.routes, children = _a.children;
-    return React.createElement(Router, null, routes.map(function (_a) {
-        var args = __rest(_a, []);
-        var path = args.path;
-        var Component = args.Component;
-        return React.createElement(Route, { exact: true, path: path, key: path }, React.Children.map(children, function (child) {
-            var baseChild = child;
-            var res = null;
-            function render(child) {
-                if (typeof child.type === "function" && child.type.name === "Content") {
-                    res = React.createElement(Component, __assign({}, args));
-                }
-                if (res === null) {
-                    if (child.props.children !== undefined) {
-                        var oldChild = child;
-                        child = child.props.children;
-                        return React.createElement(oldChild.type, __assign({}, oldChild.props), React.Children.map(child, function (childToRender) {
-                            return render(childToRender);
-                        }));
-                    }
-                    else {
-                        child = baseChild;
-                        return child;
-                    }
-                }
-                else {
-                    return res;
-                }
+    return React.createElement(Router, null,
+        React.createElement(Switch, null, routes.map(function (_a) {
+            var args = __rest(_a, []);
+            var error404 = args.error404;
+            var path = args.path;
+            var Component = args.Component;
+            if (path === undefined && error404) {
+                return React.createElement(Component, __assign({ key: "error404" }, args));
             }
-            return render(child);
-        }));
-    }));
+            else {
+                return React.createElement(Route, { exact: true, path: path, key: path }, React.Children.map(children, function (child) {
+                    var baseChild = child;
+                    var res = null;
+                    function render(child) {
+                        if (typeof child.type === "function" && child.type.name === "Content") {
+                            res = React.createElement(Component, __assign({}, args));
+                        }
+                        if (res === null) {
+                            if (child.props.children !== undefined) {
+                                var oldChild = child;
+                                child = child.props.children;
+                                return React.createElement(oldChild.type, __assign({}, oldChild.props), React.Children.map(child, function (childToRender) {
+                                    return render(childToRender);
+                                }));
+                            }
+                            else {
+                                child = baseChild;
+                                return child;
+                            }
+                        }
+                        else {
+                            return res;
+                        }
+                    }
+                    return render(child);
+                }));
+            }
+        })));
 }

@@ -1,6 +1,6 @@
 {
   "name": "react-auto-routing",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "React-auto-routing is a React component to automatic and easily create multiple routes",
   "main": "dist/AutoRouting.js",
   "types": "dist/AutoRouting.d.ts",
