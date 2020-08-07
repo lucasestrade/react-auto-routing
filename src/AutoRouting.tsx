@@ -49,18 +49,18 @@ export function AutoRouting({ routes, children }: Routes): JSX.Element {
                             res = <Component {...args} />;
                         }
                         if(res === null){
-                        if(child.props.children !== undefined){
-                            let oldChild: Object = child;
-                            child = child.props.children;
-                            return React.createElement(oldChild.type, {...oldChild.props}, React.Children.map(child, function(childToRender){
-                                return render(childToRender);
-                            }));
+                            if(child.props.children !== undefined){
+                                let oldChild: Object = child;
+                                child = child.props.children;
+                                return React.createElement(oldChild.type, {...oldChild.props}, React.Children.map(child, function(childToRender){
+                                    return render(childToRender);
+                                }));
+                            }else{
+                                child = baseChild;
+                                return child;
+                            }
                         }else{
-                            child = baseChild;
-                            return child;
-                        }
-                        }else{
-                        return res;
+                            return res;
                         }
                     }
                     return render(child);
