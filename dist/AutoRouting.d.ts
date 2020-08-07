@@ -1,6 +1,6 @@
 /// <reference types="react" />
 /**
- * react-auto-routing v.1.0.7
+ * react-auto-routing v.1.0.8
  *
  * React-auto-routing is a React component to automatic and easily create multiple routes.
  *
