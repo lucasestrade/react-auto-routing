@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 /**
- * react-auto-routing v.1.0.4
+ * react-auto-routing v.1.0.7
  * 
  * React-auto-routing is a React component to automatic and easily create multiple routes.
  * 
@@ -21,7 +21,6 @@ import {
 export interface Routes{
     routes: Array<Object>
     children: any
-    Encompass: Function
 }
 
 export interface RouteParameters{
@@ -30,26 +29,44 @@ export interface RouteParameters{
     Component: Function
 }
 
-function AutoRouting({ routes, Encompass, children }: Routes) {
-    return (
-        <Router>
-            {routes.map(({ path, title, Component }: RouteParameters) => (
-                <Route exact
-                    path={path} 
-                    key={path} >
-                        {children}
-                        {Encompass === undefined 
-                            ?
-                                <Component title={title}/>
-                            : 
-                                <Encompass>
-                                    <Component title={title}/>
-                                </Encompass>
-                        }
-                </Route>
-            ))}
-        </Router>
-    );
+export function Content(): JSX.Element {
+    return <></>
 }
 
-export default AutoRouting;
+export function AutoRouting({ routes, children }: Routes): JSX.Element {
+    return <Router>
+        {routes.map(function ({...args}: Object) {
+            let path: string = args.path; 
+            let Component: Function = args.Component;
+            return <Route exact={true}
+                path={path}
+                key={path}>
+                {React.Children.map(children, (child: Object) => {
+                    let baseChild: Object = child;
+                    let res: Object | null = null;
+                    function render(child: Object): Object {
+                        if (typeof child.type === "function" && child.type.name === "Content") {
+                            res = <Component {...args} />;
+                        }
+                        if(res === null){
+                        if(child.props.children !== undefined){
+                            let oldChild: Object = child;
+                            child = child.props.children;
+                            return React.createElement(oldChild.type, {...oldChild.props}, React.Children.map(child, function(childToRender){
+                                return render(childToRender);
+                            }));
+                        }else{
+                            child = baseChild;
+                            return child;
+                        }
+                        }else{
+                        return res;
+                        }
+                    }
+                    return render(child);
+                })
+            }
+            </Route>
+        })}
+    </Router>
+}

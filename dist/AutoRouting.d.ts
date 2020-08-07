@@ -1,6 +1,6 @@
 /// <reference types="react" />
 /**
- * react-auto-routing v.1.0.4
+ * react-auto-routing v.1.0.7
  *
  * React-auto-routing is a React component to automatic and easily create multiple routes.
  *
@@ -15,12 +15,11 @@
 export interface Routes {
     routes: Array<Object>;
     children: any;
-    Encompass: Function;
 }
 export interface RouteParameters {
     path: string;
     title: string;
     Component: Function;
 }
-declare function AutoRouting({ routes, Encompass, children }: Routes): JSX.Element;
-export default AutoRouting;
+export declare function Content(): JSX.Element;
+export declare function AutoRouting({ routes, children }: Routes): JSX.Element;
